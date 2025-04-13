@@ -3,22 +3,23 @@ import pandas as pd
 from scipy.stats import chi2_contingency
 import networkx as nx
 
-def load_data(fin_path, gclass_path, fname_path):
-    """Load data from files."""
-    FIN = pd.read_pickle(fin_path)
-    gclass = pd.read_pickle(gclass_path)
-    FNAME = pd.read_pickle(fname_path)
+def load_json_data(fin_json_path, gclass_json_path, fname_json_path):
+    """Load data from JSON files."""
+    with open(fin_json_path, 'r', encoding='utf-8') as file:
+        FIN = json.load(file)
+    with open(gclass_json_path, 'r', encoding='utf-8') as file:
+        gclass = json.load(file)
+    with open(fname_json_path, 'r', encoding='utf-8') as file:
+        FNAME = json.load(file)
     return FIN, gclass, FNAME
 
 def process_metabolites(FIN, threshold=1.5):
     """Process metabolites based on thresholds."""
     D = []
-    for df in FIN:
-        ratio = df.iloc[:, 1].astype(float)
-        index1 = ratio >= threshold
-        index2 = ratio < (1 / threshold)
-        A = df.loc[index1, df.columns[0]].tolist()
-        B = df.loc[index2, df.columns[0]].tolist()
+    for i in FIN:
+        df = pd.DataFrame.from_dict(FIN[i])
+        A = df[df['ratio'] >= threshold]['name']
+        B = df[df['ratio'] < (1 / threshold)]['name']
         D.append((A, B))
     return D
 
