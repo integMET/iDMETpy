@@ -68,6 +68,9 @@ def create_adjacency_matrix(results, D_length):
 
     return OR, P
 
+def hello() -> str:
+    return "Hello from idmetpy!"
+
 def main():
     # Example usage
     FIN, gclass, FNAME = load_data("FIN.pkl", "gclass.pkl", "FNAME.pkl")
