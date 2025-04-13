@@ -11,9 +11,9 @@ authors = [
 description = "A Python package for Network-based approach for integrating differential analysis of cancer metabolomics, translated from the R iDMET."
 readme = "README.md"
 requires-python = ">=3.10"
+license = "MIT"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Operating System :: OS Independent",
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
