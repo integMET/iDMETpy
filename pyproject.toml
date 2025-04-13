@@ -29,6 +29,3 @@ dependencies = [
 "Homepage" = "https://github.com/integMET/iDMETpy"
 "Bug Tracker" = "https://github.com/integMET/iDMETpy/issues"
 "Source" = "hhttps://github.com/integMET/iDMETpy"
-
-[tool.setuptools.packages.find]
-where = ["src"]
