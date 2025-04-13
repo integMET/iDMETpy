@@ -26,12 +26,12 @@ def process_metabolites(FIN, threshold=1.5):
 def calculate_odds_ratios(D, FNAME):
     """Calculate odds ratios and perform chi-square tests."""
     results = []
-    for i, (A1, B1) in enumerate(D):
-        for j, (A2, B2) in enumerate(D):
-            a = len(set(A1) & set(A2))
-            b = len(set(A1) & set(B2))
-            c = len(set(B1) & set(A2))
-            d = len(set(B1) & set(B2))
+    for i, (x1, x2) in enumerate(D):
+        for j, (y1, y2) in enumerate(D):
+            a = len(set(x1) & set(y1))
+            b = len(set(x1) & set(y2))
+            c = len(set(x2) & set(y1))
+            d = len(set(x2) & set(y2))
 
             if a * b * c * d == 0:
                 a += 0.5
