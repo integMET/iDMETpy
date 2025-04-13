@@ -1,1 +1,1 @@
-# iDMETpy
+# idmetpy
