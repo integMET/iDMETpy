@@ -23,6 +23,7 @@ dependencies = [
     "numpy",
     "scipy",
     "pandas",
+    "networkx"
 ]
 
 [project.urls]
