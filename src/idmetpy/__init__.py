@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import json
 from scipy.stats import chi2_contingency
 import networkx as nx
 
@@ -26,12 +27,26 @@ def process_metabolites(FIN, threshold=1.5):
 def calculate_odds_ratios(D, FNAME):
     """Calculate odds ratios and perform chi-square tests."""
     results = []
-    for i, (x1, x2) in enumerate(D):
-        for j, (y1, y2) in enumerate(D):
+    
+    for i in range(len(D)):
+        for j in range(i + 1, len(D)):
+            x1, x2 = D[i]
+            y1, y2 = D[j]
+
             a = len(set(x1) & set(y1))
             b = len(set(x1) & set(y2))
             c = len(set(x2) & set(y1))
             d = len(set(x2) & set(y2))
+
+            an = a
+            bn = b
+            cn = c
+            dn = d
+
+            A_metabolites = "|".join(list(set(x1) & set(y1)))
+            B_metabolites = "|".join(list(set(x1) & set(y2)))
+            C_metabolites = "|".join(list(set(x2) & set(y1)))
+            D_metabolites = "|".join(list(set(x2) & set(y2)))
 
             if a * b * c * d == 0:
                 a += 0.5
@@ -48,13 +63,18 @@ def calculate_odds_ratios(D, FNAME):
                 "j": j,
                 "odds_ratio": odds_ratio,
                 "p_value": p_value,
-                "a": a,
-                "b": b,
-                "c": c,
-                "d": d,
-                "i_name": FNAME[i],
-                "j_name": FNAME[j]
+                "a_count": an,
+                "b_count": bn,
+                "c_count": cn,
+                "d_count": dn,
+                "a": A_metabolites,
+                "b": B_metabolites,
+                "c": C_metabolites,
+                "d": D_metabolites,
+                "ip": FNAME[i],
+                "jp": FNAME[j]
             })
+
     return pd.DataFrame(results)
 
 def create_adjacency_matrix(results, D_length):
