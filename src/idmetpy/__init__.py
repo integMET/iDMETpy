@@ -53,8 +53,8 @@ def calculate_odds_ratios(D, FNAME):
                 c += 0.5
                 d += 0.5
 
-            contingency_table = np.array([[a, c], [b, d]])
-            chi2, p_value, _, _ = chi2_contingency(contingency_table, correction=False)
+            contingency_table = np.array([[a, b], [c, d]])
+            chi2, p_value, _, _ = chi2_contingency(contingency_table, correction=True)
             odds_ratio = np.log2((a * d) / (b * c))
 
             results.append({
@@ -91,3 +91,4 @@ def calculate_odds_ratios(D, FNAME):
 # FIN, gclass, FNAME = load_json_data("FIN.json", "gclass.json", "FNAME.json")
 # D = process_metabolites(FIN)
 # Rsub = calculate_odds_ratios(D, FNAME)
+# Rsub.to_parquet("pyRsub.parquet", index=False)
