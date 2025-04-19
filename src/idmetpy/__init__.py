@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import json
 from scipy.stats import chi2_contingency
-import networkx as nx
 
 def load_json_data(fin_json_path, gclass_json_path, fname_json_path):
     """Load data from JSON files."""
@@ -77,30 +76,18 @@ def calculate_odds_ratios(D, FNAME):
 
     return pd.DataFrame(results)
 
-def create_adjacency_matrix(results, D_length):
-    """Create adjacency matrix for graph visualization."""
-    OR = np.zeros((D_length, D_length))
-    P = np.zeros((D_length, D_length))
+# def create_adjacency_matrix(results, D_length):
+#     """Create adjacency matrix for graph visualization."""
+#     OR = np.zeros((D_length, D_length))
+#     P = np.zeros((D_length, D_length))
 
-    for _, row in results.iterrows():
-        i, j = int(row["i"]), int(row["j"])
-        OR[i, j] = row["odds_ratio"]
-        P[i, j] = row["p_value"]
+#     for _, row in results.iterrows():
+#         i, j = int(row["i"]), int(row["j"])
+#         OR[i, j] = row["odds_ratio"]
+#         P[i, j] = row["p_value"]
 
-    return OR, P
+#     return OR, P
 
-def hello() -> str:
-    return "Hello from idmetpy!"
-
-def main():
-    # Example usage
-    FIN, gclass, FNAME = load_data("FIN.pkl", "gclass.pkl", "FNAME.pkl")
-    D = process_metabolites(FIN)
-    results = calculate_odds_ratios(D, FNAME)
-    OR, P = create_adjacency_matrix(results, len(D))
-
-    print("Odds Ratios:", OR)
-    print("P-values:", P)
-
-if __name__ == "__main__":
-    main()
+# FIN, gclass, FNAME = load_json_data("FIN.json", "gclass.json", "FNAME.json")
+# D = process_metabolites(FIN)
+# Rsub = calculate_odds_ratios(D, FNAME)
